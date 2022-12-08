@@ -2,7 +2,7 @@ use {
     serde::{Deserialize, Serialize},
     solana_sdk::{
         pubkey::{ParsePubkeyError, Pubkey},
-        transaction::Transaction,
+        transaction::VersionedTransaction,
     },
     std::collections::HashMap,
 };
@@ -108,8 +108,8 @@ pub struct FeeInfo {
 /// Partially signed transactions required to execute a swap
 #[derive(Clone, Debug)]
 pub struct Swap {
-    pub setup: Option<Transaction>,
-    pub swap: Transaction,
+    pub setup: Option<VersionedTransaction>,
+    pub swap: VersionedTransaction,
     pub cleanup: Option<Transaction>,
 }
 
@@ -225,7 +225,7 @@ pub async fn swap_with_config(
             .await?,
     )?;
 
-    fn decode(base64_transaction: String) -> Result<Transaction> {
+    fn decode(base64_transaction: String) -> Result<VersionedTransaction> {
         bincode::deserialize(&base64::decode(base64_transaction)?).map_err(|err| err.into())
     }
 
