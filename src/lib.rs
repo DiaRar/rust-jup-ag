@@ -110,7 +110,7 @@ pub struct FeeInfo {
 pub struct Swap {
     pub setup: Option<VersionedTransaction>,
     pub swap: VersionedTransaction,
-    pub cleanup: Option<Transaction>,
+    pub cleanup: Option<VersionedTransaction>,
 }
 
 /// Hashmap of possible swap routes from input mint to an array of output mints
